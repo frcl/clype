@@ -34,7 +34,8 @@ class SubcommandCli(_AbstractCli):
     def __init__(self, name):
         super(SubcommandCli, self).__init__(name)
         self.commands = {}
-        self.subparsers = self.argparser.add_subparsers(title='commands')
+        self.subparsers = self.argparser.add_subparsers(title='commands',
+                                                        metavar='command')
 
     def main(self, **args):
         cmd = args['func']
@@ -44,8 +45,8 @@ class SubcommandCli(_AbstractCli):
     def command(self, func):
         """Creade a subcommand in the command line interface from a function"""
         self.commands[func.__name__] = func
-        subp = self.subparsers.add_parser(func.__name__)
+        subp = self.subparsers.add_parser(func.__name__,
+                                          help=func.__doc__)
         subp.set_defaults(func=func)
         parse_annotations(func, subp)
         return func
-

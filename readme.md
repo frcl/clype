@@ -4,12 +4,12 @@ I noticed they can be used to define command line interfaces from a regular pyth
 It's kind of like what [click](http://click.pocoo.org) does, but better.
 
 ## Usage
-Example:
+SimpleCli Example:
 ```python
 # test.py
 from typing import List, Optional
 from pathlib import Path
-from clype import SimpleCli, SubcommandCli
+from clype import SimpleCli
 
 @SimpleCli
 def mycli(v: Optional[bool], paths: List[Path]):
@@ -24,4 +24,41 @@ Result:
 $ python test.py -v dir/file.ext
 v: True
 paths (<class 'pathlib.PosixPath'>): dir/file.ext
+```
+
+SubcommandCli Example:
+```python
+# test.py
+from typing import List, Optional
+from pathlib import Path
+from clype import SubcommandCli
+
+mycli = SubcommandCli('mycli')
+
+@mycli.command
+def bar(r: Optional[bool], path: Path):
+    """
+    The first command
+    """
+    pass
+
+@mycli.command
+def foo(v: Optional[bool], paths: List[Path]):
+    """
+    The second command
+    """
+    pass
+
+if __name__ == '__main__':
+    mycli.run()
+```
+Result:
+```sh
+$ python test.py -h
+usage: mycli [-h] command ...
+optional arguments:
+  -h, --help  show this help message and exit
+commands:
+  bar       The first command
+  foo       The second command
 ```
