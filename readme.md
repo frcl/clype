@@ -20,7 +20,7 @@ if __name__ == '__main__':
     mycli.run()
 ```
 Result:
-```sh
+```
 $ python test.py -v dir/file.ext
 v: True
 paths (<class 'pathlib.PosixPath'>): dir/file.ext
@@ -53,7 +53,7 @@ if __name__ == '__main__':
     mycli.run()
 ```
 Result:
-```sh
+```
 $ python test.py -h
 usage: mycli [-h] command ...
 optional arguments:
@@ -61,4 +61,11 @@ optional arguments:
 commands:
   bar       The first command
   foo       The second command
+$ python test.py bar -h
+usage: mycli bar [-h] [-r] path
+positional arguments:
+  path
+optional arguments:
+  -h, --help  show this help message and exit
+  -r
 ```
