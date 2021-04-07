@@ -1,2 +1,4 @@
 __pycache__
-.cache
+.*cache
+TODO.md
+*.egg-info
